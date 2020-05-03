@@ -1,11 +1,6 @@
 # Jira Time Tracker Plus Chrome Extension
 
-## Features
-#### 1. Easily time track and log your work in Jira.
-#### 2. 2 display types:
-   * **Project** - display all non-DONE issues of a project.
-   * **Issue** - display all sub-task of any issue type.
-#### 3. Switch between projects or issues easily.
+Easily time track and log your work in Jira.
 
 ## Options
 
@@ -34,11 +29,3 @@ Default option is `assignee=currentUser()`, which will display all issues assign
 
 If you are not familiar with JQL, you can go to Jira and adjust all basic filters. Then switch to Advanced mode and just copy generated JQL to this field.
 
-### Default display by
-Choose between 2 display types.
-
-### Display by Project
-Enter all your project keys you want to track.
-
-### Display by Parent Issue
-Enter all Parent Issue keys you want to track.
