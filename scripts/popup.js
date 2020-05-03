@@ -128,17 +128,6 @@ function sumWorklogs(worklogs) {
     }, { timeSpentSeconds: 0 }).timeSpentSeconds;
     var totalHours = totalSeconds / 3600;
     return (Math.round((totalHours + Number.EPSILON) * 100) / 100) + 'h';
-    var totalWeeks = Math.floor(totalSeconds / 144000);
-    totalSeconds = totalSeconds % 144000;
-    var totalDays = Math.floor(totalSeconds / 28800);
-    totalSeconds = totalSeconds % 28800;
-    var totalHours = Math.floor(totalSeconds / 3600);
-    totalSeconds = totalSeconds % 3600;
-    var totalMinutes = Math.floor(totalSeconds / 60);
-    return (totalWeeks ? totalWeeks + 'w' : '') + ' '
-			+ (totalDays ? totalDays + 'd' : '') + ' '
-			+ (totalHours ? totalHours + 'h' : '') + ' '
-			+ (totalMinutes ? totalMinutes + 'm' : '');
 }
 
 function generateLogTableRow(id, issue) {
@@ -146,9 +135,9 @@ function generateLogTableRow(id, issue) {
     console.log(issue);
 
 	var icon = buildHTML("img", null, {src:issue.fields.issuetype.iconUrl, style:"vertical-align:bottom; padding-right:5px"});
-    var idCell = buildHTML('td', icon[0].outerHTML + id, { class: 'issue-id' });
+    var idCell = buildHTML('td', icon[0].outerHTML + '<a target="_blank" href="' + JIRA.baseUrl + '/browse/' + id + '">' + id + '</a>', { class: 'issue-id' });
 
-    var summaryCell = buildHTML('td', issue.fields.summary, { class: 'issue-summary', title: issue.fields.summary });
+    var summaryCell = buildHTML('td', issue.fields.summary , { class: 'issue-summary', title: issue.fields.summary });
 
     var estimationCell = buildHTML('td', issue.fields.timeoriginalestimate / 3600 + 'h');
 

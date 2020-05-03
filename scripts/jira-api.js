@@ -22,7 +22,8 @@ function JiraAPI(baseUrl, apiExtension, username, password, jql) {
         setProject: setProject,
         setIssue: setIssue,
         getProjectStatuses: getProjectStatuses,
-        getTransitions: getTransitions
+        getTransitions: getTransitions,
+        baseUrl: baseUrl
     };
 
     function login() {
