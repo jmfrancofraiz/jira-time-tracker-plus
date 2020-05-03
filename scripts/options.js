@@ -11,9 +11,6 @@
         var apiExtension = document.getElementById('apiExtension').value;
         var jql = document.getElementById('jql').value;
         var itemsOnPage = document.getElementById('itemsOnPage').value;
-		var projects = document.getElementById('projects').value;
-		var issues = document.getElementById('issues').value;
-        var displayType = document.querySelector('input[name="displayType"]:checked').value;
 
         chrome.storage.sync.set({
             username: username,
@@ -21,10 +18,7 @@
             baseUrl: baseUrl,
             apiExtension: apiExtension,
             jql: jql,
-            itemsOnPage : itemsOnPage,
-			projects : projects,
-            issues: issues,
-            displayType: displayType
+            itemsOnPage : itemsOnPage
         }, function() {
             var status = document.getElementById('status');
             status.textContent = 'Options saved.';
@@ -44,9 +38,7 @@
             apiExtension: '/rest/api/2',
             jql: 'assignee=currentUser()',
             itemsOnPage : 10,
-			projects : '',
-            issues: '',
-            displayType: ''
+			projects : ''
         }, function(items) {
             document.getElementById('username').value = items.username;
             document.getElementById('password').value = items.password;
@@ -54,9 +46,6 @@
             document.getElementById('apiExtension').value = items.apiExtension;
             document.getElementById('jql').value = items.jql;
             document.getElementById('itemsOnPage').value = items.itemsOnPage;
-			document.getElementById('projects').value = items.projects;
-			document.getElementById('issues').value = items.issues;
-            document.querySelector('input[value="'+ items.displayType +'"]').checked = true;
         });
     }
     

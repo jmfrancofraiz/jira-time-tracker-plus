@@ -86,7 +86,8 @@ function JiraAPI(baseUrl, apiExtension, username, password, jql) {
         var url = "/issue/" + issueid + "/transitions";
         var options = {
             success: success,
-            error: Error
+            error: error,
+            id: issueid
         };
         return ajaxWrapper(url, options);
     }
@@ -102,8 +103,9 @@ function JiraAPI(baseUrl, apiExtension, username, password, jql) {
             headers: options.headers,
             data: options.data,
             success: function (data) {
-                if (options.success)
-                    options.success(data);
+                if (options.success) {
+                        options.success(data,options.id);
+                }
             },
             error: function (xhr) {
                 if (options.error)

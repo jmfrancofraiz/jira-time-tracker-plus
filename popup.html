@@ -9,29 +9,18 @@
     <script src="scripts/popup.js"></script>
 </head>
 <body>
-    <span class="projects-select">
-        <span id="project-name">Project:</span>
-        <select id="project-names">
-        </select>
-    </span>
-    <span class="issues-select">
-        <span id="issue-name">Issue:</span>
-        <select id="issue-names">
-        </select>
-    </span>
-	<br />
-	<br />
     <div id="table-container">
         <table id="jira-log-time-table">
             <thead>
                 <tr>
-                    <th width="10%">ID</th>
-                    <th width="23%">Description</th>
-                    <th width="10%">Total</th>
+                    <th width="12%">ID</th>
+                    <th width="36%">Description</th>
+                    <th width="10%">Est.</th>
+                    <th width="10%">Spent</th>
                     <th width="10%">Log time</th>
-                    <th width="18%">Date</th>
-                    <th width="20%" style="overflow:hidden;">Status</th>
-                    <th width="10%">Action</th>
+                    <th width="18%" style="display: none;">Date</th>
+                    <th width="12%" style="overflow:hidden;">Status</th>
+                    <th width="10%" style="text-align: center;">Action</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -56,15 +45,8 @@
             <img src="images/icon48.png"/>
             <span class="extension-name">JIRA Time Tracker Plus</span>
         </div>
-        <div id="switch-display">
-            <div>Display by:</div>
-            <group class="inline-radio">
-                <div><input type="radio" name="displayType" value="project"><label>Project</label></div>
-                <div><input type="radio" name="displayType" value="issue"><label>Issue</label></div>
-            </group>
-        </div>
         <div id="nav">
-            <a href="options.html" tabindex="1">Options</a> | <a href="https://github.com/jayjaydluffy/jira-time-tracker-plus" target="_blank" tabindex="2">About</a>
+            <a href="options.html" tabindex="1">Options</a> | <a href="https://github.com/jmfrancofraiz/jira-time-tracker-plus" target="_blank" tabindex="2">About</a>
         </div>
     </div>
 </body>

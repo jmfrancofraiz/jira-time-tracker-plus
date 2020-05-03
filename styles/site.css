@@ -12,9 +12,9 @@ a {
     margin: 0 8px;
 }
 
-    a:hover, a:active, a:focus {
-        text-decoration: underline;
-    }
+a:hover, a:active, a:focus {
+    text-decoration: underline;
+}
 
 #error {
     padding: 10px;
@@ -26,22 +26,15 @@ a {
     display: none;
 }
 
-#project-name, #issue-name {
-    font-size: 22px;
-    color: #666666;
-    font-weight: normal;
-    margin: 10px;
-}
-
 #jira-log-time-table {
     width: 770px;
 }
 
-    #jira-log-time-table tbody {
-        width: 770px;
-        height: 400px;
-        min-height: 400px;
-    }
+#jira-log-time-table tbody {
+    width: 100%;
+    height: 400px;
+    min-height: 400px;
+}
 
 table {
     width: 100%;
@@ -121,67 +114,7 @@ input {
     font-size:20px;
     margin-left:5px;
 }
-#switch-display {
-    width: 40%;
-    display: inline-block;
-    vertical-align: middle;
-}
-#switch-display .inline-radio {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    border-radius: 3px;
-    overflow: hidden;
-    border: 1px solid #b6b6b6;
-}
-#switch-display .inline-radio div {
-    position: relative;
-    -webkit-box-flex: 1;
-    -webkit-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
-}
 
-#switch-display .inline-radio input {
-    width: 100%;
-    height: 20px;
-    opacity: 0;
-}
-#switch-display .inline-radio input:hover {
-    cursor: pointer;
-}
-#switch-display .inline-radio label {
-    position: absolute;
-    top: 0;
-    left: 0;
-    color: #b6b6b6;
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    pointer-events: none;
-    border-right: 1px solid #b6b6b6;
-}
-#switch-display .inline-radio div:last-child label {
-    border-right: 0;
-}
-#switch-display .inline-radio input:checked + label {
-    background: rgb(0, 140, 219);
-    font-weight: 500;
-    color: #fff;
-}
 
 #nav {
     font-size: 14px;
@@ -325,8 +258,8 @@ span.next_prev {
     text-decoration: none;
 }
 
-    span.next_prev:hover {
-        background: #1b6fa3;
-        text-decoration: none;
-        cursor:pointer;
-    }
+span.next_prev:hover {
+    background: #1b6fa3;
+    text-decoration: none;
+    cursor:pointer;
+}
