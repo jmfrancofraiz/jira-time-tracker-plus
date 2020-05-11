@@ -14,7 +14,6 @@ Date.prototype.toDateInputValue = (function () {
 });
 
 function onDOMContentLoaded() {
-
     chrome.storage.sync.get({
         username: '',
         password: '',
@@ -27,6 +26,7 @@ function onDOMContentLoaded() {
 }
 
 function init(options) {
+
     if (!options.username) {
         return errorMessage('Missing username');
     }
@@ -57,9 +57,11 @@ function init(options) {
     });
 
     JIRA.getIssues(startAt, maxResults, onFetchSuccess, onFetchError);
+
 }
 
 function onFetchSuccess(response) {
+
     var issues = response.issues;
 
     maxResults = response.maxResults;
@@ -158,7 +160,7 @@ function generateLogTableRow(id, issue) {
     statusCell = buildHTML('td');
     var statusLoaderDiv = buildHTML('div', null, { class: 'loader-mini', 'data-status-loader-issue-id': id }).appendTo(statusCell);
     statusLoaderDiv.hide();
-    var $select = buildHTML("select", null, { "data-issue-id": id }).appendTo(statusCell);
+    var $select = buildHTML("select", null, { "data-issue-id": id, class: "issue-status-combo" }).appendTo(statusCell);
     statusOptions($select, issue.fields.status.name)
     $select.on('change', updateStatus);
 

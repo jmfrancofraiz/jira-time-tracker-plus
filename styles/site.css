@@ -79,6 +79,11 @@ input {
     border: 1px solid #cccccc;
 }
 
+.issue-status-combo {
+    width: 100px;
+    overflow: hidden;
+}
+
 .issue-log-date-input {
     padding: 2px;
 }
@@ -106,7 +111,9 @@ input {
 }
 #logo img {
     vertical-align: middle;
-    margin-left: 5px;
+    margin-left: 8px;
+    height: 40px;
+    margin-top: 5px;
 }
 .extension-name {
     display: inline-block;
@@ -122,8 +129,7 @@ input {
     width: 20%;
     display: inline-block;
     text-align: right;
-    vertical-align: top;
-    padding: 15px 0 0 0;
+    vertical-align: middle;
 }
 
 
@@ -238,24 +244,25 @@ input {
 }
 
 div.paging {
-    margin-right: 0px;
-    margin-left: auto;
-    width: 150px;
+    width: 37%;
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 span.font16 {
-    font-family: Sylfaen;
-    font-size: 16px;
+    font-size: 12px;
 }
 
 span.next_prev {
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0px;
-    background: #000000;
+    background: grey;
     color: #ffffff;
-    padding: 0px 4px 0px 4px;
+    padding: 0px 4px 2px 4px;
     text-decoration: none;
+    font-weight: bold;
 }
 
 span.next_prev:hover {
