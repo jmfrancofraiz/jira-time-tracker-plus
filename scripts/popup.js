@@ -158,24 +158,9 @@ function generateLogTableRow(id, issue) {
     statusCell = buildHTML('td');
     var statusLoaderDiv = buildHTML('div', null, { class: 'loader-mini', 'data-status-loader-issue-id': id }).appendTo(statusCell);
     statusLoaderDiv.hide();
-    var $select = buildHTML("select", null, { "data-issue-id": id, "data-status-name": issue.fields.status.name });
-    $select.appendTo(statusCell);
+    var $select = buildHTML("select", null, { "data-issue-id": id }).appendTo(statusCell);
+    statusOptions($select, issue.fields.status.name)
     $select.on('change', updateStatus);
-    JIRA.getTransitions(id, (data,id) => {
-        if (data != null) {
-            var combo = $("select[data-issue-id='"+id+"'");
-            var trans = data.transitions;
-            for (var i in trans) {
-                var itm = trans[i];
-                var $option = buildHTML("option", null, { text: itm.name, value: itm.name, "data-transition-id": itm.id });
-                if (combo.data('statusName') === itm.name) {
-                    $option.attr("selected","selected");
-                    combo.val(itm.name);
-                }
-                $option.appendTo($select);
-            }
-        }
-    }, genericResponseError);
 
     var playButton = buildButton("play", id);
     var stopButton = buildButton("stop", id);
@@ -368,17 +353,36 @@ function genericResponseError(error) {
 
 function updateStatus(evt) {
     var self = $(this);
-    var id = $(this).data("issue-id");
-    var statusId = $(this).find(":selected").data("transition-id");
-    var value = $(this).val();
-
+    var id = self.data("issue-id");
+    var statusId = self.find(":selected").data("transition-id");
+    var value = self.val();
+    self.hide();
     var $div = $("div.loader-mini[data-status-loader-issue-id=" + id);
     $div.show();
-    $(this).hide();
-
-    JIRA.changeStatus(id, statusId, function (data) {
-        self.show();
+    JIRA.changeStatus(id, statusId, function (status) {
         $div.hide();
+        self.show();
+        statusOptions(self, value);
+    }, genericResponseError);
+}
+
+function statusOptions(combo, newStatusName) {
+    combo.data('statusName',newStatusName);
+    combo.html('');
+    var $option = buildHTML("option", null, { text: newStatusName, value: newStatusName, "data-transition-id": "" });
+    $option.attr("selected","selected");
+    $option.appendTo(combo);
+    combo.val(newStatusName);
+    JIRA.getTransitions(combo.data("issueId"), (data) => {
+        if (data != null) {
+            for (var i in data.transitions) {
+                var trans = data.transitions[i];
+                if (combo.data('statusName') != trans.name) {
+                    var $option = buildHTML("option", null, { text: trans.name, value: trans.name, "data-transition-id": trans.id });
+                    $option.appendTo(combo);
+                }
+            }
+        }
     }, genericResponseError);
 }
 

@@ -36,7 +36,7 @@
             password: '',
             baseUrl: '',
             apiExtension: '/rest/api/2',
-            jql: 'assignee=currentUser()',
+            jql: 'assignee=currentUser() AND resolution = Unresolved',
             itemsOnPage : 10,
 			projects : ''
         }, function(items) {
