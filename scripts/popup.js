@@ -171,7 +171,7 @@ function generateLogTableRow(id, issue) {
     if (objectsToLog && !objectsToLog[id])
         objectsToLog[id] = {};
 
-    actionCell = buildHTML('td', null, {style:"text-align:center"});
+    actionCell = buildHTML('td', null, {style:"text-align:center;padding-left:15px;padding-top:7px"});
     if (objectsToLog && objectsToLog[id] && !objectsToLog[id]["StartDate"]) {
         actionCell.append(playButton);
     }
@@ -210,9 +210,9 @@ function logTimeClick(evt) {
     $('div.issue-total-time-spent[data-total-issue-id=' + issueId + ']').toggle();
     $('div.loader-mini[data-loader-issue-id=' + issueId + ']').toggle();
     var comment = prompt("Comment");
+    var newEstimate = prompt("Time to finish?");
     if (comment != null) {
-        JIRA.updateWorklog(issueId, timeInput.val(), new Date(dateInput.val()), comment,
-		function (data) {
+        JIRA.updateWorklog(issueId, timeInput.val(), new Date(dateInput.val()), comment, newEstimate, function (data) {
 		    getWorklog(issueId);
 		}, genericResponseError);
     } else {
@@ -295,12 +295,11 @@ function LoadData() {
 
 function buildButton(type, id) {
     var $button;
+    var style = "width:20px; height:20px; padding-left: 2px";
     if (type == "play") {
         $button = buildHTML("img", null, {
             src: "images/play.png",
-            width: "16",
-            height: "16",
-            style: "width:16px; height:16px",
+            style: style,
             "data-issue-id": id
         });
         $button.on('click', playButtonClick);
@@ -308,9 +307,7 @@ function buildButton(type, id) {
     if (type == "stop") {
         $button = buildHTML("img", null, {
             src: "images/stop.png",
-            width: "16",
-            height: "16",
-            style: "width:16px; height:16px",
+            style: style,
             "data-issue-id": id
         });
         $button.on('click', stopButtonClick);
@@ -318,18 +315,14 @@ function buildButton(type, id) {
     if (type == "pause") {
         $button = buildHTML("img", null, {
             src: "images/pause.png",
-            width: "16",
-            height: "16",
-            style: "width:16px; height:16px",
+            style: style,
             "data-issue-id": id
         });
     }
     if (type == "save") {
         $button = buildHTML("img", null, {
             src: "images/save.png",
-            width: "16",
-            height: "16",
-            style: "width:16px; height:16px",
+            style: style,
             "data-issue-id": id
         });
         $button.on('click', logTimeClick);

@@ -55,9 +55,9 @@ function JiraAPI(baseUrl, apiExtension, username, password, jql) {
         return ajaxWrapper(url, options);
     }
 
-    function updateWorklog(id, timeSpent, date, comment, success, error) {
-        var url = '/issue/' + id + '/worklog';
-        var options = {
+    function updateWorklog(id, timeSpent, date, comment, newEstimate, success, error) {
+        var url = '/issue/' + id + '/worklog' + (!!newEstimate ? '?adjustEstimate=new&newEstimate='+newEstimate : '');
+        return ajaxWrapper(url, {
             type: 'POST',
             data: JSON.stringify({
                 "started": moment(date).format('YYYY-MM-DDT' + moment().format('HH:mm:ss.SSS') + 'ZZ'),
@@ -66,8 +66,7 @@ function JiraAPI(baseUrl, apiExtension, username, password, jql) {
             }),
             success: success,
             error: error
-        }
-        return ajaxWrapper(url, options);
+        });
     }
 
     function getTransitions(issueid, success, error) {
