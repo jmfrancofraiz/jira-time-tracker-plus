@@ -197,28 +197,38 @@ function generateLogTableRow(id, issue) {
 function logTimeClick(evt) {
 
     errorMessage('');
+    var wrongTimeFormat = 'Time input in wrong format. You can specify a time unit after a time value "X", such as Xw, Xd, Xh or Xm, to represent weeks (w), days (d), hours (h) and minutes (m), respectively.';
 
     var issueId = $(evt.target).data('issue-id');
     var timeInput = $('input.issue-time-input[data-time-issue-id=' + issueId + ']');
     var dateInput = $('input.issue-log-date-input[data-date-issue-id=' + issueId + ']');
 
     if (!timeInput.val().match(/[0-9]{1,4}[wdhm]/g)) {
-        errorMessage('Time input in wrong format. You can specify a time unit after a time value "X", such as Xw, Xd, Xh or Xm, to represent weeks (w), days (d), hours (h) and minutes (m), respectively.');
+        errorMessage(wrongTimeFormat);
         return;
     }
 
     $('div.issue-total-time-spent[data-total-issue-id=' + issueId + ']').toggle();
     $('div.loader-mini[data-loader-issue-id=' + issueId + ']').toggle();
+    
     var comment = prompt("Comment");
-    var newEstimate = prompt("Time to finish?");
-    if (comment != null) {
-        JIRA.updateWorklog(issueId, timeInput.val(), new Date(dateInput.val()), comment, newEstimate, function (data) {
-		    getWorklog(issueId);
-		}, genericResponseError);
-    } else {
-        alert("time will not be logged");
+    if (comment == null) {
+        alert("Time will not be logged");
         getWorklog(issueId);
+        return;
     }
+
+    var newEstimate = prompt("Time to finish?");
+    if (!newEstimate.match(/[0-9]{1,4}[wdhm]/g)) {
+        alert(wrongTimeFormat);
+        getWorklog(issueId);
+        return;
+    }
+    
+    JIRA.updateWorklog(issueId, timeInput.val(), new Date(dateInput.val()), comment, newEstimate, function (data) {
+        getWorklog(issueId);
+    }, genericResponseError);
+    
 }
 
 function playButtonClick(evt) {
