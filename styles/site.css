@@ -1,9 +1,11 @@
 body {
     margin: 0;
+    height: 520px;
 }
 
 div#table-container {
-    min-height: 450px;
+    height: calc(100% - 50px);
+    overflow-y: scroll;
 }
 
 a {
@@ -20,6 +22,7 @@ a:hover, a:active, a:focus {
     padding: 10px;
     color: red;
     font-weight: bold;
+    margin-bottom: 40px;
 }
 
 #loader-container {
@@ -102,6 +105,10 @@ input {
     background: #f3f3f3;
     margin: 0;
     border-top: 1px solid #e5e5e5;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
 }
 
 #logo {

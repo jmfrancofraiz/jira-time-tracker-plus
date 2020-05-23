@@ -141,7 +141,7 @@ function generateLogTableRow(id, issue) {
 
     var summaryCell = buildHTML('td', issue.fields.summary , { class: 'issue-summary', title: issue.fields.summary });
 
-    var estimationCell = buildHTML('td', issue.fields.timeoriginalestimate / 3600 + 'h');
+    var estimationCell = buildHTML('td',  (Math.round((issue.fields.timeoriginalestimate / 3600 + Number.EPSILON) * 100) / 100)  + 'h');
 
     var totalTimeContainer = buildHTML('td', null, { class: 'total-time-container', 'data-ttcont-issue-id': id });
     var totalTime = buildHTML('div', null, { class: 'issue-total-time-spent', 'data-total-issue-id': id });
@@ -153,8 +153,8 @@ function generateLogTableRow(id, issue) {
     var timeInputCell = buildHTML('td');
     timeInputCell.append(timeInput);
 
-    var dateInput = buildHTML('input', null, { type: 'date', class: 'issue-log-date-input', value: new Date().toDateInputValue(), 'data-date-issue-id': id });
-    var dateInputCell = buildHTML('td',null,{style:"display:none"});
+    var dateInput = buildHTML('input', null, { type: 'text', class: 'issue-log-date-input', 'data-date-issue-id': id });
+    var dateInputCell = buildHTML('td', null, {style:"display:none"});
     dateInputCell.append(dateInput);
 
     statusCell = buildHTML('td');
@@ -219,16 +219,17 @@ function logTimeClick(evt) {
     }
 
     var newEstimate = prompt("Time to finish?");
-    if (!newEstimate.match(/[0-9]{1,4}[wdhm]/g)) {
+    if (!!newEstimate && !newEstimate.match(/[0-9]{1,4}[wdhm]/g)) {
         alert(wrongTimeFormat);
         getWorklog(issueId);
         return;
     }
     
-    JIRA.updateWorklog(issueId, timeInput.val(), new Date(dateInput.val()), comment, newEstimate, function (data) {
+    JIRA.updateWorklog(issueId, timeInput.val(), dateInput.val(), comment, newEstimate, function (data) {
+        dateInput.val("");
         getWorklog(issueId);
     }, genericResponseError);
-    
+
 }
 
 function playButtonClick(evt) {
@@ -252,6 +253,8 @@ function playButtonClick(evt) {
 function stopButtonClick(evt) {
     var issueId = $(evt.target).data('issue-id');
     var $timeInput = $('input[data-time-issue-id=' + issueId + ']');
+    var $dateInput = $('input.issue-log-date-input[data-date-issue-id=' + issueId + ']');
+    
     if (objectsToLog[issueId] && objectsToLog[issueId].StartDate) {
         var startDate = moment(objectsToLog[issueId].StartDate);
         var current = moment();
@@ -262,6 +265,7 @@ function stopButtonClick(evt) {
 
         var text = (hours == 0 ? "" : hours + "h") + " " + minutes + "m";
         $timeInput.val(text);
+        $dateInput.val(moment(objectsToLog[issueId]["StartDate"]));
 
         delete objectsToLog[issueId]["StartDate"];
         SaveData();
@@ -290,9 +294,12 @@ function buildHTML(tag, html, attrs) {
 }
 
 function errorMessage(message) {
-    var $error = $('#error');
-    $error.text(message);
-    $error.show();
+    //var $error = $('#error');
+    //$error.text(message);
+    //$error.show();
+    if (message && message != "") {
+        alert(message);
+    }
 }
 
 function SaveData() {

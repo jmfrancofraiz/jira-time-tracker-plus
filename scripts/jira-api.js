@@ -56,11 +56,24 @@ function JiraAPI(baseUrl, apiExtension, username, password, jql) {
     }
 
     function updateWorklog(id, timeSpent, date, comment, newEstimate, success, error) {
-        var url = '/issue/' + id + '/worklog' + (!!newEstimate ? '?adjustEstimate=new&newEstimate='+newEstimate : '');
+        var url = '/issue/' + id + '/worklog' + (!!newEstimate ? '?adjustEstimate=new&newEstimate='+newEstimate : ''); 
+
+        //var started = moment(date).format('YYYY-MM-DDT' + moment().format('HH:mm:ss.SSS') + 'ZZ');
+        //now minus worklog duration. TODO: control parsing errors
+        //const dur = moment.duration("PT" + timeSpent.toUpperCase().replace(/\s/g,''));
+        //var started = moment().subtract(dur).format('YYYY-MM-DDTHH:mm:ss.SSSZZ');
+
+        var started;
+        if (!!date) {
+            started = moment(date);
+        } else {
+            started = moment().subtract(moment.duration("PT" + timeSpent.toUpperCase().replace(/\s/g,'')));
+        }
+        
         return ajaxWrapper(url, {
             type: 'POST',
             data: JSON.stringify({
-                "started": moment(date).format('YYYY-MM-DDT' + moment().format('HH:mm:ss.SSS') + 'ZZ'),
+                "started": started.format('YYYY-MM-DDTHH:mm:ss.SSSZZ'),
                 "timeSpent": timeSpent,
                 "comment": comment
             }),
