@@ -134,8 +134,6 @@ function sumWorklogs(worklogs) {
 
 function generateLogTableRow(id, issue) {
 
-    console.log(issue);
-
 	var icon = buildHTML("img", null, {src:issue.fields.issuetype.iconUrl, style:"vertical-align:bottom; padding-right:5px"});
     var idCell = buildHTML('td', icon[0].outerHTML + '<a target="_blank" href="' + JIRA.baseUrl + '/browse/' + id + '">' + id + '</a>', { class: 'issue-id' });
 
